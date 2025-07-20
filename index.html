@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptCrack - Hustle Launcher</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #0d0d0d; color: #00ff99; font-family: monospace; }
+    .terminal-box { background-color: #1a1a1a; padding: 1rem; border: 2px solid #00ff99; border-radius: 0.5rem; }
+    .caret { animation: blink 1s step-end infinite; }
+    @keyframes blink { from, to { color: transparent; } 50% { color: #00ff99; } }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-xl w-full terminal-box">
+    <h1 class="text-2xl mb-4">🔓 PromptCrack v1.0 - Hustle Launcher</h1>
+    <form id="promptForm" class="space-y-4">
+      <label class="block">Tipo de Hustle
+        <select id="tipo" class="w-full bg-black border border-green-400 p-2 mt-1">
+          <option value="libro_kdp">Libro Amazon KDP</option>
+          <option value="fiverr_servicio">Servicio en Fiverr</option>
+          <option value="contenido_tiktok">Contenido para TikTok</option>
+          <option value="dropshipping">Tienda Dropshipping</option>
+        </select>
+      </label>
+      <label class="block">Tema
+        <input id="tema" type="text" placeholder="ej: robot triste" class="w-full bg-black border border-green-400 p-2 mt-1" />
+      </label>
+      <label class="block">Estilo
+        <input id="estilo" type="text" placeholder="ej: infantil tierno" class="w-full bg-black border border-green-400 p-2 mt-1" />
+      </label>
+      <button type="submit" class="bg-green-500 text-black font-bold px-4 py-2 mt-2 hover:bg-green-400">Generar Misión</button>
+    </form>
+    <div id="output" class="mt-6 whitespace-pre-wrap hidden"></div>
+  </div>
+  <script>
+    const form = document.getElementById('promptForm');
+    const output = document.getElementById('output');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const tipo = document.getElementById('tipo').value;
+      const tema = document.getElementById('tema').value;
+      const estilo = document.getElementById('estilo').value;
+      let resultado = \"\";
+      if (tipo === \"libro_kdp\") {
+        resultado = `\\n🚀 Misión: Crear libro infantil\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Usa este prompt en ChatGPT:\\n\"Escribe un cuento infantil titulado '${tema}', estilo ${estilo}, que enseñe una lección simple a niños de 6 años.\"\\n\\n2. Crea ilustraciones con DALL·E o Leonardo.Ai.\\n3. Diseña portada en Canva.\\n4. Sube el libro a Amazon KDP. Precio sugerido: $3.99`;
+      } else if (tipo === \"fiverr_servicio\") {
+        resultado = `\\n🚀 Misión: Lanzar servicio Fiverr\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Usa este prompt en ChatGPT:\\n\"Redacta un texto de ${tema}, estilo ${estilo}, claro y profesional.\"\\n\\n2. Publica tu servicio en Fiverr con ejemplos.\\n3. Ofrece precios de $5, $10 y $20.`;
+      } else if (tipo === \"contenido_tiktok\") {
+        resultado = `\\n🚀 Misión: Crear contenido TikTok\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Prompt para ideas virales:\\n\"Dame 5 ideas de contenido TikTok sobre ${tema} con un enfoque ${estilo} y final impactante.\"\\n\\n2. Edita con CapCut y sube con audio tendencia.`;
+      } else if (tipo === \"dropshipping\") {
+        resultado = `\\n🚀 Misión: Tienda Dropshipping\\nProducto: ${tema}\\nEstilo: ${estilo}\\n\\n1. Prompt para descripción:\\n\"Escribe una descripción para un producto llamado '${tema}', estilo ${estilo}, con beneficios y CTA.\"\\n\\n2. Usa Shopify o WooCommerce.\\n3. Publica 5 productos con textos generados.`;
+      }
+      output.classList.remove('hidden');
+      output.textContent = resultado + \"\\n\\n✅ MISIÓN COMPLETA. Ejecuta ahora.\";
+    });
+  </script>
+</body>
+</html>
