@@ -34,26 +34,36 @@
     </form>
     <div id="output" class="mt-6 whitespace-pre-wrap hidden"></div>
   </div>
+
   <script>
     const form = document.getElementById('promptForm');
     const output = document.getElementById('output');
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const tipo = document.getElementById('tipo').value;
-      const tema = document.getElementById('tema').value;
-      const estilo = document.getElementById('estilo').value;
-      let resultado = \"\";
-      if (tipo === \"libro_kdp\") {
-        resultado = `\\n🚀 Misión: Crear libro infantil\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Usa este prompt en ChatGPT:\\n\"Escribe un cuento infantil titulado '${tema}', estilo ${estilo}, que enseñe una lección simple a niños de 6 años.\"\\n\\n2. Crea ilustraciones con DALL·E o Leonardo.Ai.\\n3. Diseña portada en Canva.\\n4. Sube el libro a Amazon KDP. Precio sugerido: $3.99`;
-      } else if (tipo === \"fiverr_servicio\") {
-        resultado = `\\n🚀 Misión: Lanzar servicio Fiverr\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Usa este prompt en ChatGPT:\\n\"Redacta un texto de ${tema}, estilo ${estilo}, claro y profesional.\"\\n\\n2. Publica tu servicio en Fiverr con ejemplos.\\n3. Ofrece precios de $5, $10 y $20.`;
-      } else if (tipo === \"contenido_tiktok\") {
-        resultado = `\\n🚀 Misión: Crear contenido TikTok\\nTema: ${tema}\\nEstilo: ${estilo}\\n\\n1. Prompt para ideas virales:\\n\"Dame 5 ideas de contenido TikTok sobre ${tema} con un enfoque ${estilo} y final impactante.\"\\n\\n2. Edita con CapCut y sube con audio tendencia.`;
-      } else if (tipo === \"dropshipping\") {
-        resultado = `\\n🚀 Misión: Tienda Dropshipping\\nProducto: ${tema}\\nEstilo: ${estilo}\\n\\n1. Prompt para descripción:\\n\"Escribe una descripción para un producto llamado '${tema}', estilo ${estilo}, con beneficios y CTA.\"\\n\\n2. Usa Shopify o WooCommerce.\\n3. Publica 5 productos con textos generados.`;
+      const tema = document.getElementById('tema').value.trim();
+      const estilo = document.getElementById('estilo').value.trim();
+      let resultado = "";
+
+      if (!tema || !estilo) {
+        output.classList.remove('hidden');
+        output.textContent = "⚠️ Por favor, completa todos los campos antes de generar la misión.";
+        return;
       }
+
+      if (tipo === "contenido_tiktok") {
+        resultado = `🚀 Misión: Crear contenido TikTok\nTema: ${tema}\nEstilo: ${estilo}\n\n1. Prompt para ideas virales:\n"Dame 5 ideas de contenido TikTok sobre ${tema} con un enfoque ${estilo} y final impactante."\n\n2. Edita con CapCut y sube con audio tendencia.`;
+      } else if (tipo === "libro_kdp") {
+        resultado = `🚀 Misión: Crear libro Amazon KDP\nTema: ${tema}\nEstilo: ${estilo}\n\n1. Prompt para historia:\n"Escribe un cuento titulado '${tema}', estilo ${estilo}, para niños de 6 años."\n\n2. Ilustraciones con IA. 3. Publicar en Amazon KDP.`;
+      } else if (tipo === "fiverr_servicio") {
+        resultado = `🚀 Misión: Servicio en Fiverr\nTema: ${tema}\nEstilo: ${estilo}\n\n1. Prompt:\n"Redacta una descripción de servicio para Fiverr sobre ${tema}, estilo ${estilo}, profesional y convincente."\n\n2. Publica con paquetes $5 / $10 / $20.`;
+      } else if (tipo === "dropshipping") {
+        resultado = `🚀 Misión: Tienda Dropshipping\nProducto: ${tema}\nEstilo: ${estilo}\n\n1. Prompt:\n"Escribe una descripción para un producto '${tema}', estilo ${estilo}, enfocada en beneficios y CTA."\n\n2. Sube a Shopify o WooCommerce.`;
+      }
+
       output.classList.remove('hidden');
-      output.textContent = resultado + \"\\n\\n✅ MISIÓN COMPLETA. Ejecuta ahora.\";
+      output.textContent = resultado + "\n\n✅ MISIÓN COMPLETA. Ejecuta ahora.";
     });
   </script>
 </body>
